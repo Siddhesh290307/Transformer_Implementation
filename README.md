@@ -1,4 +1,4 @@
-# Transformer Neural Machine Translation (English → French)
+# Transformer Implementation for Neural Machine Translation
 
 This project implements a full **Transformer Encoder–Decoder architecture** for Neural Machine Translation (NMT), inspired by ["Attention Is All You Need"](https://arxiv.org/abs/1706.03762).
 
@@ -46,6 +46,12 @@ Attention(Q,K,V) = softmax(QK^T / √d_k) V
 - Global dependency modeling via self-attention
 - Higher representational capacity than traditional RNNs
 - Better scalability with large datasets
+
+
+## Transformer Architecture Diagram
+
+![Transformer Architecture](https://machinelearningmastery.com/wp-content/uploads/2021/08/attention_research_1.png)
+
 
 ## Training Setup
 
@@ -98,18 +104,16 @@ This motivates further investigation into:
 - Low-resource translation performance
 
 ## Future Improvements
-- [ ] Increase training epochs
-- [ ] Implement Beam Search decoding
-- [ ] Add label smoothing
-- [ ] Introduce learning rate warmup scheduling
-- [ ] Conduct formal BLEU comparison with LSTM baseline
-- [ ] Extend to multilingual translation
-
+- Increase training epochs
+- Implement Beam Search decoding
+-  Add label smoothing
+- Introduce learning rate warmup scheduling
+  
 ## References
-1. **Attention Is All You Need**  
-   Vaswani, A., et al. (2017).  
-   *Advances in Neural Information Processing Systems (NeurIPS 2017)*.
 
-2. **BLEU: a Method for Automatic Evaluation of Machine Translation**  
-   Papineni, K., et al. (2002).  
-   *ACL 2002*.
+**Attention Is All You Need**  
+Vaswani, A., et al. (2017).  
+*Advances in Neural Information Processing Systems (NeurIPS 2017)*.  
+[https://arxiv.org/abs/1706.03762](https://arxiv.org/abs/1706.03762)  
+or [PDF](https://papers.neurips.cc/paper/7181-attention-is-all-you-need.pdf).
+
