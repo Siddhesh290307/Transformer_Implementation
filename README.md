@@ -84,8 +84,7 @@ Transformer_Implementation/
 │   └── Transformer_Training.ipynb
 │
 └── README.md
-
-
+```
 
 ## Comparative Context (LSTM vs Transformer)
 
