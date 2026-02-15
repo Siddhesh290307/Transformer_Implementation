@@ -50,7 +50,7 @@ Attention(Q,K,V) = softmax(QK^T / √d_k) V
 
 ## Transformer Architecture Diagram
 
-![Transformer Architecture](https://machinelearningmastery.com/wp-content/uploads/2021/08/attention_research_1.png)
+![Transformer Architecture](https://machinelearningmastery.com/wp-content/uploads/2021/08/attention_research_1.png){width=800 height=400}
 
 
 ## Training Setup
@@ -70,19 +70,20 @@ Attention(Q,K,V) = softmax(QK^T / √d_k) V
 Transformer_Implementation/
 │
 ├── model/
-│ ├── attention.py
-│ ├── encoder.py
-│ ├── decoder.py
-│ ├── fnn.py
-│ ├── masking.py
-│ ├── positional_encoding.py
-│ ├── transformer.py
-│ └── pycache/
+│   ├── attention.py
+│   ├── encoder.py
+│   ├── decoder.py
+│   ├── fnn.py
+│   ├── masking.py
+│   ├── positional_encoding.py
+│   ├── transformer.py
+│   └── __pycache__/
 │
 ├── training/
-│ └── Transformer_Training.ipynb
+│   └── Transformer_Training.ipynb
 │
 └── README.md
+
 
 
 ## Comparative Context (LSTM vs Transformer)
