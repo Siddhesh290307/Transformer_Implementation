@@ -26,23 +26,37 @@ The project builds a neural machine translation system based on the original Tra
 
 ---
 
+## Dataset
+
+This project uses the English–French Language Translation dataset from Kaggle:
+
+🔗 Dataset: https://www.kaggle.com/datasets/devicharith/language-translation-englishfrench
+
+Contains paired sentences in English and French.
+
+Used for training, validation, and testing of the Transformer model.
+
+Includes preprocessing steps such as tokenization, padding, and vocabulary creation.
+
 ## Project Structure
 
-.
+Transformer_Implementation/
+│
 ├── model/
-│   ├── attention.py
-│   ├── decoder.py
-│   ├── encoder.py
-│   ├── fnn.py
-│   ├── masking.py
-│   ├── positional_encoding.py
-│   ├── transformer.py
-│   └── __pycache__/
+│   ├── attention.py              # Scaled dot-product & multi-head attention
+│   ├── encoder.py                # Transformer encoder stack
+│   ├── decoder.py                # Transformer decoder stack
+│   ├── fnn.py                    # Position-wise feed-forward network
+│   ├── masking.py                # Padding and look-ahead masking
+│   ├── positional_encoding.py    # Sinusoidal positional encodings
+│   ├── transformer.py            # Complete encoder–decoder model
+│   └── __pycache__/              # Compiled Python files
 │
 ├── training/
-│   └── Transformer_Training.ipynb
+│   └── Transformer_Training.ipynb   # Training & evaluation notebook
 │
 └── README.md
+
 
 ## Observations
 
@@ -68,3 +82,12 @@ Under low-resource or limited-training regimes, recurrent architectures can rema
 ## Future Improvements
 
 - I will work towards extending the same Transformer architecture to more domains of NLP as well as further train the same model on more epochs.
+
+## References
+
+Attention Is All You Need
+Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., & Polosukhin, I. (2017).
+Advances in Neural Information Processing Systems (NeurIPS 2017).
+
+Papineni, K., Roukos, S., Ward, T., & Zhu, W.-J. (2002).
+BLEU: a Method for Automatic Evaluation of Machine Translation. ACL 2002.
