@@ -48,22 +48,18 @@ Attention(Q,K,V) = softmax(QK^T / √d_k) V
 - Better scalability with large datasets
 
 
-## Transformer Architecture Diagram
-
-![Transformer Architecture](https://machinelearningmastery.com/wp-content/uploads/2021/08/attention_research_1.png){width=800 height=400}
-
 
 ## Training Setup
 
-| Parameter | Value |
-|-----------|-------|
-| **Optimizer** | Adam |
-| **Loss Function** | Masked Cross-Entropy |
-| **Embedding Dimension** | 128 |
-| **Number of Heads** | 8 |
-| **Feedforward Dimension** | 512 |
-| **Teacher Forcing** | Enabled |
-| **Evaluation Metric** | Corpus-level BLEU Score |
+| Parameter             | Value                   |
+| --------------------- | ----------------------- |
+| Optimizer             | Adam                    |
+| Loss Function         | Masked Cross-Entropy    |
+| Embedding Dimension   | 128                     |
+| Number of Heads       | 8                       |
+| Feedforward Dimension | 512                     |
+| Teacher Forcing       | Enabled                 |
+| Evaluation Metric     | Corpus-level BLEU Score |
 
 ## Project Structure
 
