@@ -1,93 +1,115 @@
-# Transformer-based Neural Machine Translation
+# Transformer Neural Machine Translation (English → French)
 
-This project implements a **sequence-to-sequence Transformer** model for machine translation, trained from scratch on a parallel corpus. It demonstrates how to build and train a Transformer encoder–decoder architecture for translating sentences from a source language to a target language, and how to evaluate translation quality using BLEU.[web:88][web:92]
+This project implements a full **Transformer Encoder–Decoder architecture** for Neural Machine Translation (NMT), inspired by ["Attention Is All You Need"](https://arxiv.org/abs/1706.03762).
 
----
+The objective is to build the Transformer model from scratch and evaluate its performance on an **English–French translation task** using the **BLEU score metric**. The implementation includes positional encoding, multi-head attention, masking strategies, and sequence generation during inference.
 
-## Description
-
-The project builds a neural machine translation system based on the original Transformer architecture (“Attention Is All You Need”). It includes data preprocessing (tokenization, vocabulary creation, padding), model implementation (multi-head self-attention, encoder–decoder blocks, positional encoding), training with teacher forcing, and evaluation using corpus-level BLEU scores on a held-out test set.[web:88]
-
----
-
-## Features
-
-- Transformer encoder–decoder for NMT:
-  - Multi-head self-attention in encoder and decoder
-  - Encoder–decoder (cross) attention
-  - Position-wise feed-forward networks
-  - Positional encodings and dropout
-- End-to-end translation pipeline:
-  - Text cleaning, tokenization, and vocabulary building
-  - Padding and masking (padding masks + look-ahead masks)
-- Evaluation:
-  - Corpus BLEU score on test data
-  - Sample qualitative translations (source vs. reference vs. predicted)
-
----
+This repository also serves as a continuation of my previous [Seq2Seq LSTM-based NMT work](https://github.com/Siddhesh290307/Neural-Machine-Translation), enabling architectural comparison between recurrent and self-attention-based approaches.
 
 ## Dataset
 
-This project uses the English–French Language Translation dataset from Kaggle:
+- **Source Language**: English
+- **Target Language**: French
+- **Dataset Size**: 175,621 sentence pairs
+- **Source**: [Kaggle – English–French Language Translation Dataset](https://www.kaggle.com/datasets/devicharith/language-translation-englishfrench)
 
-🔗 Dataset: https://www.kaggle.com/datasets/devicharith/language-translation-englishfrench
+### Preprocessing Steps
+- Lowercasing and normalization
+- Tokenization
+- Vocabulary construction
+- Addition of special tokens (`<SOS>`, `<EOS>`)
+- Padding to uniform sequence length
+- Creation of padding and look-ahead masks
 
-Contains paired sentences in English and French.
+## Model Architecture
 
-Used for training, validation, and testing of the Transformer model.
+**Transformer Encoder–Decoder** following the original design:
+Encoder: Multi-Head Self-Attention → Feed-Forward → Residual + LayerNorm
+Decoder: Masked Multi-Head Self-Attention → Encoder-Decoder Attention → Feed-Forward → Residual + LayerNorm
 
-Includes preprocessing steps such as tokenization, padding, and vocabulary creation.
+
+**Key Components:**
+- Multi-Head Self-Attention (Encoder)
+- Masked Multi-Head Self-Attention (Decoder)
+- Encoder–Decoder Cross Attention
+- Position-wise Feed-Forward Networks
+- Residual Connections + Layer Normalization
+- Sinusoidal Positional Encoding
+
+### Attention Mechanism
+The scaled dot-product attention is defined as:
+Attention(Q,K,V) = softmax(QK^T / √d_k) V
+
+
+**Key Characteristics:**
+- Fully parallelizable (no recurrence)
+- Global dependency modeling via self-attention
+- Higher representational capacity than traditional RNNs
+- Better scalability with large datasets
+
+## Training Setup
+
+| Parameter | Value |
+|-----------|-------|
+| **Optimizer** | Adam |
+| **Loss Function** | Masked Cross-Entropy |
+| **Embedding Dimension** | 128 |
+| **Number of Heads** | 8 |
+| **Feedforward Dimension** | 512 |
+| **Teacher Forcing** | Enabled |
+| **Evaluation Metric** | Corpus-level BLEU Score |
 
 ## Project Structure
 
 Transformer_Implementation/
 │
 ├── model/
-│   ├── attention.py              # Scaled dot-product & multi-head attention
-│   ├── encoder.py                # Transformer encoder stack
-│   ├── decoder.py                # Transformer decoder stack
-│   ├── fnn.py                    # Position-wise feed-forward network
-│   ├── masking.py                # Padding and look-ahead masking
-│   ├── positional_encoding.py    # Sinusoidal positional encodings
-│   ├── transformer.py            # Complete encoder–decoder model
-│   └── __pycache__/              # Compiled Python files
+│ ├── attention.py
+│ ├── encoder.py
+│ ├── decoder.py
+│ ├── fnn.py
+│ ├── masking.py
+│ ├── positional_encoding.py
+│ ├── transformer.py
+│ └── pycache/
 │
 ├── training/
-│   └── Transformer_Training.ipynb   # Training & evaluation notebook
+│ └── Transformer_Training.ipynb
 │
 └── README.md
 
 
-## Observations
+## Comparative Context (LSTM vs Transformer)
 
-- This repository extends my previous Neural Machine Translation implementation based on an encoder–decoder LSTM architecture (with and without attention):
-https://github.com/Siddhesh290307/Neural-Machine-Translation
+This project extends my earlier implementation: [Neural Machine Translation (Encoder–Decoder LSTM with Attention)](https://github.com/Siddhesh290307/Neural-Machine-Translation)
 
-- A comparative analysis between the LSTM-based model and the Transformer architecture reveals distinct behavioral differences under limited training conditions:
-    - Grammatical Structure:
-        The Transformer produced outputs with stronger syntactic consistency and more stable sentence structure, even with relatively limited training.
-    - Semantic Coherence:
-        The LSTM encoder–decoder demonstrated comparatively better semantic retention in certain cases, particularly when trained on smaller datasets.
-    - Data Sensitivity:
-        With constrained training data and epochs, the LSTM occasionally matched or exceeded Transformer performance in BLEU score and semantic fidelity. This suggests that Transformers may require larger datasets to fully leverage their representational capacity.
+### Observations Under Limited Training
+- **Grammatical Consistency**: Transformer demonstrated stronger syntactic stability
+- **Semantic Retention**: LSTM occasionally preserved semantic meaning better under limited data
+- **Data Sensitivity**: Transformers required larger datasets and more epochs to consistently outperform recurrent models
 
-- These observations support the broader hypothesis that:
-Under low-resource or limited-training regimes, recurrent architectures can remain competitive with self-attention-based models.
+### Research Insight
+Under low-resource or constrained training regimes, recurrent architectures can remain competitive with self-attention-based models.
 
-- This comparison motivates further investigation into:
-    - Data efficiency of Transformers vs LSTMs
-    - Scaling behavior with increasing dataset size
-    - Interpretability of attention mechanisms across architectures
+This motivates further investigation into:
+- Data efficiency comparisons
+- Scaling behavior analysis
+- Interpretability of attention mechanisms
+- Low-resource translation performance
 
 ## Future Improvements
-
-- I will work towards extending the same Transformer architecture to more domains of NLP as well as further train the same model on more epochs.
+- [ ] Increase training epochs
+- [ ] Implement Beam Search decoding
+- [ ] Add label smoothing
+- [ ] Introduce learning rate warmup scheduling
+- [ ] Conduct formal BLEU comparison with LSTM baseline
+- [ ] Extend to multilingual translation
 
 ## References
+1. **Attention Is All You Need**  
+   Vaswani, A., et al. (2017).  
+   *Advances in Neural Information Processing Systems (NeurIPS 2017)*.
 
-Attention Is All You Need
-Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., & Polosukhin, I. (2017).
-Advances in Neural Information Processing Systems (NeurIPS 2017).
-
-Papineni, K., Roukos, S., Ward, T., & Zhu, W.-J. (2002).
-BLEU: a Method for Automatic Evaluation of Machine Translation. ACL 2002.
+2. **BLEU: a Method for Automatic Evaluation of Machine Translation**  
+   Papineni, K., et al. (2002).  
+   *ACL 2002*.
