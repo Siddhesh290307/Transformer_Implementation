@@ -55,14 +55,19 @@ Attention(Q,K,V) = softmax(QK^T / √d_k) V
 | --------------------- | ----------------------- |
 | Optimizer             | Adam                    |
 | Loss Function         | Masked Cross-Entropy    |
-| Embedding Dimension   | 128                     |
-| Number of Heads       | 8                       |
-| Feedforward Dimension | 512                     |
+| Embedding Dimension   | 128 (d_model)           |
+| Number of Heads       | 8 (H)                   |
+| Feedforward Dimension | 512 (dff)               |
+| Number of Layers      | 4 (N, encoder/decoder)  |
+| Key Dimension         | 16 (dk)                 |
+| Value Dimension       | 16 (dv)                 |
+| Dropout Rate          | 0.1                     |
 | Teacher Forcing       | Enabled                 |
 | Evaluation Metric     | Corpus-level BLEU Score |
 
 ## Project Structure
 
+```text
 Transformer_Implementation/
 │
 ├── model/
